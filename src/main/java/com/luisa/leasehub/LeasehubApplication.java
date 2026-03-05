@@ -1,0 +1,13 @@
+package com.luisa.leasehub;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LeasehubApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(LeasehubApplication.class, args);
+	}
+
+}
