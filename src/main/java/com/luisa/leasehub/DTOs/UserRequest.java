@@ -15,7 +15,7 @@ public class UserRequest {
     @Size(max = 50, message = "First Name cannot exceed 50 characters")
     private String lastName;
     @NotBlank(message = "Email must no be empty")
-    @Email(message = "Invalid format")
+    @Email(message = "Email must be valid")
     private String email;
     @NotBlank(message = "Phone must no be empty")
     private String phone;

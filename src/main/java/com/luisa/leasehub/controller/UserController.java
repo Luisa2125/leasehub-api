@@ -34,4 +34,9 @@ public class UserController {
         return users.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.ok(users);
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> findById(@PathVariable Long userId){
+        return ResponseEntity.ok(userService.findById(userId));
+    }
 }

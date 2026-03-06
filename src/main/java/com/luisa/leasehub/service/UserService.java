@@ -2,13 +2,17 @@ package com.luisa.leasehub.service;
 
 import com.luisa.leasehub.DTOs.UserRequest;
 import com.luisa.leasehub.DTOs.UserResponse;
+import com.luisa.leasehub.exception.EmailAlreadyExistsException;
+import com.luisa.leasehub.exception.ResourceNotFoundException;
 import com.luisa.leasehub.model.User;
 import com.luisa.leasehub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -44,14 +48,13 @@ public class UserService {
 
     public UserResponse createUser(UserRequest userRequest){
         String email = userRequest.getEmail();
-        Boolean isValid = !(userRepository.existsByEmail(email));
-        if (isValid) {
-            User user = mapToUser(userRequest);
-            UserResponse userResponse = mapFromUser(userRepository.save(user));
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            throw new EmailAlreadyExistsException("Email already exists");
+        }else {
+            User newUser = mapToUser(userRequest);
+            UserResponse userResponse = mapFromUser(userRepository.save(newUser));
             return userResponse;
-        }
-        else {
-            return null;
         }
     }
 
@@ -60,4 +63,11 @@ public class UserService {
         List<UserResponse> userResponses = users.stream().map(UserService::mapFromUser).toList();
         return userResponses;
     }
+
+    public UserResponse findById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user not found with id :"+userId));
+        UserResponse userResponse = mapFromUser(user);
+        return userResponse;
+    }
+
 }
