@@ -2,10 +2,7 @@ package com.luisa.leasehub.DTOs;
 
 import com.luisa.leasehub.enums.Role;
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class UserRequest {
     @NotBlank(message = "First name must no be empty")
@@ -17,6 +14,9 @@ public class UserRequest {
     @NotBlank(message = "Email must no be empty")
     @Email(message = "Email must be valid")
     private String email;
+    @NotBlank(message = "Password must no be null")
+    @Size(min = 8, max = 12, message = "Password must be between 8 and 12 Characters")
+    private String password;
     @NotBlank(message = "Phone must no be empty")
     private String phone;
     @NotNull(message = "Role must no be empty")
@@ -69,5 +69,13 @@ public class UserRequest {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -20,7 +20,10 @@ public class User {
     @Column
     private String phone;
     @Column
+    @Enumerated(EnumType.STRING)
     private Role role;
+    @Column
+    private String password;
     @Column
     private String createdAt;
     @Column
@@ -30,13 +33,14 @@ public class User {
 
     }
 
-    public User(String firstName, String lastName, String email, String phone, Role role, String createdAt) {
+    public User(String firstName, String lastName, String email, String phone, Role role, String password, String createdAt) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.role = role;
         this.createdAt = createdAt;
+        this.password = password;
     }
 
     public Long getId() {
@@ -101,5 +105,13 @@ public class User {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

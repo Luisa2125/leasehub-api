@@ -21,12 +21,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request){
-        UserResponse newUser = userService.createUser(request);
-        return newUser != null ? ResponseEntity.status(HttpStatus.CREATED).build()
-                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+//    @PostMapping
+//    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request){
+//        UserResponse newUser = userService.createUser(request);
+//        return newUser != null ? ResponseEntity.status(HttpStatus.CREATED).build()
+//                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+//    }
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listAll() {
