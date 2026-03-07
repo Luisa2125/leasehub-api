@@ -36,4 +36,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleGenericException(Exception exception) {
         return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(PropertyAlreadyExistsException.class)
+    public ResponseEntity<String> handlePropertyAlreadyExists(PropertyAlreadyExistsException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
